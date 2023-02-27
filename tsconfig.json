@@ -1,0 +1,26 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue", // .vue 文件中含有ts/js代码
+    // 自动导入新增的三个文件
+    "env.d.ts",
+    "auto-imports.d.ts",
+    "components.d.ts"
+  ],
+  "compilerOptions": {
+    // 给vscode来读取的
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "noImplicitAny": false // 允许隐式的any值
+  },
+  "references": [
+    // 引用
+    {
+      "path": "./tsconfig.config.json"
+    }
+  ]
+}
