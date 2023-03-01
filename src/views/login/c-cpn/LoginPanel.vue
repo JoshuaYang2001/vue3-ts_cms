@@ -2,10 +2,25 @@
   <div class="LoginPanel">
     <h1 class="title">后台管理系统</h1>
     <div class="tab">
-      <el-tabs type="border-card" stretch>
-        <el-tab-pane label="账号登录">User</el-tab-pane>
+      <el-tabs type="border-card" stretch v-model="activeName">
+        <!-- 账号登录 -->
+        <el-tab-pane label="账号登录" name="account">
+          <template #label>
+            <el-icon><UserFilled /></el-icon>
+            <span>账号登录</span>
+          </template>
 
-        <el-tab-pane label="手机登录">Role</el-tab-pane>
+          <PanelAccount ref="accountRef" />
+        </el-tab-pane>
+
+        <!-- 手机登录 -->
+        <el-tab-pane label="手机登录" name="phone">
+          <template #label>
+            <el-icon><Iphone /></el-icon>
+            <span>手机登录</span>
+          </template>
+          <PanelPhone />
+        </el-tab-pane>
       </el-tabs>
     </div>
     <div class="controls">
@@ -17,7 +32,11 @@
       <el-link href="#" type="primary">找回密码</el-link>
     </div>
 
-    <el-button class="login-btn" type="primary" size="large"
+    <el-button
+      class="login-btn"
+      type="primary"
+      size="large"
+      @click="handleLoginBtn"
       >立即登录</el-button
     >
   </div>
@@ -25,7 +44,19 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import PanelAccount from './panel-account.vue'
+import PanelPhone from './panel-phone.vue'
 const isRemPsd = ref(false)
+const activeName = ref('account')
+const accountRef = ref<any>()
+function handleLoginBtn() {
+  console.log('点击立即登录')
+  if (activeName.value == 'account') {
+    accountRef.value.loginAction()
+  } else {
+    console.log(2)
+  }
+}
 </script>
 
 <style lang="less" scoped>

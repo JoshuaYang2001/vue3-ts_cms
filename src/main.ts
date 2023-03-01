@@ -5,9 +5,10 @@ import App from './App.vue'
 import router from './router'
 import pinia from './store'
 import 'element-plus/dist/index.css'
+import registerIcons from './global/register.icons'
 
 const app = createApp(App) // 创建app示例
-
+app.use(registerIcons)
 app.use(router)
 app.use(pinia)
 app.mount('#app') // 挂载到#app上
