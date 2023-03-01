@@ -4,7 +4,7 @@ import './assets/css/index.less'
 import App from './App.vue'
 import router from './router'
 import pinia from './store'
-import 'element-plus/dist/index.css'
+import 'element-plus/dist/index.css' // 如果不想全局引入样式 可以使用vite-plugin-style-import这个包，按需引入
 import registerIcons from './global/register.icons'
 
 const app = createApp(App) // 创建app示例

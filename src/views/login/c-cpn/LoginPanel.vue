@@ -48,11 +48,11 @@ import PanelAccount from './panel-account.vue'
 import PanelPhone from './panel-phone.vue'
 const isRemPsd = ref(false)
 const activeName = ref('account')
-const accountRef = ref<any>()
+const accountRef = ref<InstanceType<typeof PanelAccount>>() // 这里的PanelAccount是一个构造器
 function handleLoginBtn() {
   console.log('点击立即登录')
   if (activeName.value == 'account') {
-    accountRef.value.loginAction()
+    accountRef.value?.loginAction()
   } else {
     console.log(2)
   }

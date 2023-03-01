@@ -1,6 +1,11 @@
 <template>
   <div class="panel-account">
-    <el-form label-width="60px" :model="account" :rules="accountRules">
+    <el-form
+      label-width="60px"
+      :model="account"
+      :rules="accountRules"
+      ref="formRef"
+    >
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name" />
       </el-form-item>
@@ -12,8 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import type { FormRules } from 'element-plus'
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import type { FormRules, ElForm } from 'element-plus'
+import { accountLoginRequest } from '@/service/login/login'
 //1. 双向绑定表单数据
 const account = reactive({
   name: '',
@@ -27,7 +34,7 @@ const accountRules: FormRules = {
     {
       pattern: /^[a-z0-9]{6,18}$/,
       message: '账号的长度需要在3到8位',
-      trigger: 'change' // 触发的方式
+      trigger: 'blur' // 触发的方式
     }
   ],
   password: [
@@ -35,15 +42,31 @@ const accountRules: FormRules = {
     {
       pattern: /^[a-z0-9]{3,}$/,
       message: '密码应该3位以上的字母和数字',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ]
 }
 
 // 3. 登录逻辑
-
+const formRef = ref<InstanceType<typeof ElForm>>()
 function loginAction() {
-  console.log('fuchunluoshishabi')
+  formRef.value?.validate((valid) => {
+    //validate的参数是一个回调函数
+    if (valid) {
+      const name = account.name
+      const password = account.password
+      // 如果验证成功,发送网络请求，请求逻辑单独抽取
+      accountLoginRequest({ name, password }).then((res) => {
+        console.log(res)
+      })
+      ElMessage({
+        message: 'Congrats, this is a success message.',
+        type: 'success'
+      })
+    } else {
+      console.log('验证失败')
+    }
+  })
 }
 defineExpose({ loginAction })
 </script>
