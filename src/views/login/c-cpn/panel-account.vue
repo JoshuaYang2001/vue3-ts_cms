@@ -20,9 +20,10 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormRules, ElForm } from 'element-plus'
-import { accountLoginRequest } from '@/service/login/login'
+import { useLoginStore } from '@/store/login/login'
 //1. 双向绑定表单数据
-const account = reactive({
+import type { IAccount } from '@/types/index'
+const account = reactive<IAccount>({
   name: '',
   password: ''
 })
@@ -49,16 +50,19 @@ const accountRules: FormRules = {
 
 // 3. 登录逻辑
 const formRef = ref<InstanceType<typeof ElForm>>()
+const loginStore = useLoginStore()
 function loginAction() {
   formRef.value?.validate((valid) => {
     //validate的参数是一个回调函数
     if (valid) {
       const name = account.name
       const password = account.password
+      loginStore.accountLoginRequest({ name, password })
       // 如果验证成功,发送网络请求，请求逻辑单独抽取
-      accountLoginRequest({ name, password }).then((res) => {
-        console.log(res)
-      })
+      // accountLoginRequest({ name, password }).then((res) => {
+      //   console.log(res)
+      // })
+      loginAction
       ElMessage({
         message: 'Congrats, this is a success message.',
         type: 'success'
