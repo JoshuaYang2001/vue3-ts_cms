@@ -64,9 +64,6 @@ function loginAction(isRemPwd: boolean) {
         if (isRemPwd) {
           localCache.setCache('name', name)
           localCache.setCache('password', password)
-        } else {
-          localCache.removeCache('name')
-          localCache.removeCache('password')
         }
       })
 

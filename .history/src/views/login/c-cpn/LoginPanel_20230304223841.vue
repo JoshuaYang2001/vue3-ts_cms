@@ -50,7 +50,6 @@ import PanelPhone from './panel-phone.vue'
 const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false) // 是否记住密码
 watch(isRemPwd, (newValue) => {
   localCache.setCache('isRemPwd', newValue)
-  console.log(isRemPwd.value)
 })
 const activeName = ref('account')
 const accountRef = ref<InstanceType<typeof PanelAccount>>() // 这里的PanelAccount是一个构造器

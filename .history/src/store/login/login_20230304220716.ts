@@ -16,6 +16,7 @@ const useLoginStore = defineStore('login', {
       // 获取token等信息
       const loginResult = await accountLoginRequest(account) // 异步拿到相应结果
       this.id = loginResult.data.id
+
       this.token = loginResult.data.token //将响应的数据存到数据仓库中
       this.name = loginResult.data.name
 

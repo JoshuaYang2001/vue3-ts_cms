@@ -6,7 +6,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/main'
     },
     {
       path: '/login',
@@ -23,6 +23,15 @@ const router = createRouter({
       component: () => import('../views/not-found/NotFound.vue')
     }
   ]
+})
+
+// 导航守卫
+router.beforeEach((to) => {
+  const token = localStorage.getItem('token')
+
+  if (to.path === '/main' && !token) {
+    return '/login'
+  }
 })
 
 export default router

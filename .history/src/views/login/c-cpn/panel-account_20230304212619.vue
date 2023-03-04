@@ -28,7 +28,7 @@ import { localCache } from '@/utils/cache'
 // 账号和密码
 const account = reactive<IAccount>({
   name: localCache.getCache('name') ?? '', //非空断言
-  password: localCache.getCache('password') ?? ''
+  password: localCache.getCache('name') ?? ''
 })
 
 // 2. 配置表单校验规则
@@ -54,7 +54,7 @@ const accountRules: FormRules = {
 // 3. 登录逻辑
 const formRef = ref<InstanceType<typeof ElForm>>()
 const loginStore = useLoginStore()
-function loginAction(isRemPwd: boolean) {
+function loginAction() {
   formRef.value?.validate((valid) => {
     //validate的参数是一个回调函数
     if (valid) {
@@ -64,13 +64,8 @@ function loginAction(isRemPwd: boolean) {
         if (isRemPwd) {
           localCache.setCache('name', name)
           localCache.setCache('password', password)
-        } else {
-          localCache.removeCache('name')
-          localCache.removeCache('password')
         }
-      })
-
-      // 向后台发送账号和密码，以及根据token执行跳转逻辑
+      }) // 向后台发送账号和密码，以及根据token执行跳转逻辑
       // 如果验证成功,发送网络请求，请求逻辑单独抽取
       // accountLoginRequest({ name, password }).then((res) => {
       //   console.log(res)
