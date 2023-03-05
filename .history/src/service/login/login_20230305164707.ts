@@ -1,5 +1,4 @@
 import hyRequest from '..'
-import { localCache } from '@/utils/cache'
 
 export function accountLoginRequest(account: any) {
   return hyRequest.post({

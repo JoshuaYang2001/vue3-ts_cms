@@ -7,19 +7,19 @@ const LOGIN_TOKEN = 'token'
 
 interface IloginState {
   token: string
-  // userInfo: {
-  //   role?: {
-  //     id: number
-  //   }
-  // }
-  // 可以直接将userinfo变成any
-  userInfo: any
+  userInfo: {
+    role: {
+      id: number
+    }
+  }
 }
 
 const useLoginStore = defineStore('login', {
-  state: (): IloginState => ({
+  state: () => ({
+    // id: '',
     token: localStorage.getItem(LOGIN_TOKEN) ?? '',
     userInfo: {}
+    // name: ''
   }),
   actions: {
     // eslint-disable-next-line prettier/prettier
@@ -36,8 +36,9 @@ const useLoginStore = defineStore('login', {
       // 获取登录用户的详细信息  需要携带token
       const userInfoResult = await getuserInfoById(id)
 
+      console.log(userInfoResult)
       this.userInfo = userInfoResult.data
-      console.log(this.userInfo.role.id)
+      console.log(this.userInfo)
 
       // 页面跳转
       router.push('/main')

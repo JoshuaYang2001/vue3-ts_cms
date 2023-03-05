@@ -4,22 +4,11 @@ import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
 const LOGIN_TOKEN = 'token'
-
-interface IloginState {
-  token: string
-  // userInfo: {
-  //   role?: {
-  //     id: number
-  //   }
-  // }
-  // 可以直接将userinfo变成any
-  userInfo: any
-}
-
 const useLoginStore = defineStore('login', {
-  state: (): IloginState => ({
-    token: localStorage.getItem(LOGIN_TOKEN) ?? '',
-    userInfo: {}
+  state: () => ({
+    // id: '',
+    token: localStorage.getItem(LOGIN_TOKEN) ?? ''
+    // name: ''
   }),
   actions: {
     // eslint-disable-next-line prettier/prettier
@@ -33,11 +22,8 @@ const useLoginStore = defineStore('login', {
       // 进行本地缓存
       localCache.setCache(LOGIN_TOKEN, this.token)
 
-      // 获取登录用户的详细信息  需要携带token
-      const userInfoResult = await getuserInfoById(id)
-
-      this.userInfo = userInfoResult.data
-      console.log(this.userInfo.role.id)
+      // 获取登录用户的详细信息
+      const userInfoRequest = await getuserInfoById(id)
 
       // 页面跳转
       router.push('/main')

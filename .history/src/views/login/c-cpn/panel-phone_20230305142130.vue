@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-around;
   .get-btn {
-    margin-left: 7px;
+    margin-left: 20px;
   }
 }
 .panel-phone {

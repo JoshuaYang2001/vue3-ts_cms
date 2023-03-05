@@ -7,7 +7,7 @@
       <el-form-item label="验证码">
         <div class="vertify-code">
           <el-input />
-          <el-button type="primary" class="get-btn">点击发送</el-button>
+          <el-button type="primary">点击发送</el-button>
         </div>
       </el-form-item>
     </el-form>
@@ -20,9 +20,6 @@
 .vertify-code {
   display: flex;
   justify-content: space-around;
-  .get-btn {
-    margin-left: 7px;
-  }
 }
 .panel-phone {
   color: red;

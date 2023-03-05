@@ -1,5 +1,5 @@
-import hyRequest from '..'
 import { localCache } from '@/utils/cache'
+import hyRequest from '..'
 
 export function accountLoginRequest(account: any) {
   return hyRequest.post({
@@ -10,9 +10,9 @@ export function accountLoginRequest(account: any) {
 
 export function getuserInfoById(id: number) {
   return hyRequest.get({
-    url: `/users/${id}`,
+    url: `'/users/' + ${id}`,
     headers: {
-      Authorization: localCache.getCache('token')
-    } // 每个请求如果都要加一个Authorization写在这儿就太麻烦了
+      Authorization: localCache.getCache('login')
+    }
   })
 }

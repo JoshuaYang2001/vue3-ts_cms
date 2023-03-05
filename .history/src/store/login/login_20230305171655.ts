@@ -36,6 +36,7 @@ const useLoginStore = defineStore('login', {
       // 获取登录用户的详细信息  需要携带token
       const userInfoResult = await getuserInfoById(id)
 
+      console.log(userInfoResult)
       this.userInfo = userInfoResult.data
       console.log(this.userInfo.role.id)
 
