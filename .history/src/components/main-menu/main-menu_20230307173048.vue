@@ -11,6 +11,8 @@
       :collapse="isFold"
       active-text-color="#fff"
       background-color="#001529"
+      collapse-transition:
+      true
     >
       <template v-for="item in userMenus" :key="item.id">
         <el-sub-menu :index="item.id + ''">

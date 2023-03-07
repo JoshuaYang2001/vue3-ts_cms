@@ -31,6 +31,7 @@ const useLoginStore = defineStore('login', {
       const loginResult = await accountLoginRequest(account) // 异步拿到相应结果
       const id = loginResult.data.id
       this.token = loginResult.data.token //将响应的数据存到数据仓库中
+      const name = loginResult.data.name
 
       // 存token
       localCache.setCache(LOGIN_TOKEN, this.token)
@@ -47,8 +48,8 @@ const useLoginStore = defineStore('login', {
 
       // 进行本地缓存
 
-      localCache.setCache(USER_INFO, this.userInfo)
-      localCache.setCache(USER_MENUS, this.userMenus)
+      localCache.setCache('userInfo', this.userInfo)
+      localCache.setCache('userMenus', this.userMenus)
 
       // 页面跳转
       router.push('/main')

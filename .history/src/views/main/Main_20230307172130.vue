@@ -39,7 +39,7 @@ function handleFoldChange(flag: boolean) {
   background-color: antiquewhite;
   height: 100vh;
   overflow-x: hidden;
-  transition: width 0.3s ease;
+  transition: width 2s cubic-bezier(1s);
 }
 .el-header {
   background-color: rgb(255, 255, 255);

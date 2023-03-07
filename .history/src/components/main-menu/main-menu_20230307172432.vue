@@ -2,7 +2,7 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="logo" />
-      <span v-show="!isFold" class="title">弘源管理系统</span>
+      <span class="title">弘源管理系统</span>
     </div>
 
     <el-menu

@@ -2,13 +2,13 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="logo" />
-      <span v-show="!isFold" class="title">弘源管理系统</span>
+      <span class="title">弘源管理系统</span>
     </div>
 
     <el-menu
       default-active="3"
       text-color="#b7bdc3"
-      :collapse="isFold"
+      :collapse="true"
       active-text-color="#fff"
       background-color="#001529"
     >
@@ -40,7 +40,7 @@ const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 
 // 折叠菜单
-defineProps({
+const prop = defineProps({
   isFold: {
     type: Boolean,
     default: false
@@ -71,7 +71,6 @@ defineProps({
     font-size: 16px;
     font-weight: 700;
     color: white;
-    white-space: nowrap; /*标题文本不换行*/
   }
 }
 

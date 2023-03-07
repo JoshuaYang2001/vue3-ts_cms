@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-menu">
+  <div class="nav-menu" v-show="!isFold">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="logo" />
       <span v-show="!isFold" class="title">弘源管理系统</span>

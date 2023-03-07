@@ -38,8 +38,6 @@ function handleFoldChange(flag: boolean) {
 .el-aside {
   background-color: antiquewhite;
   height: 100vh;
-  overflow-x: hidden;
-  transition: width 0.3s ease;
 }
 .el-header {
   background-color: rgb(255, 255, 255);

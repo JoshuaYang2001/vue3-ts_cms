@@ -2,21 +2,52 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="logo" />
-      <span v-show="!isFold" class="title">弘源管理系统</span>
+      <span class="title">弘源管理系统</span>
     </div>
-
     <el-menu
-      default-active="3"
+      default-active="1-2"
       text-color="#b7bdc3"
-      :collapse="isFold"
       active-text-color="#fff"
       background-color="#001529"
     >
+      <!-- <el-sub-menu index="1">
+        <template #title>
+          <el-icon><Monitor /></el-icon>
+          <span>系统总览</span>
+        </template>
+        <el-menu-item>核心技术</el-menu-item>
+        <el-menu-item>商品统计</el-menu-item>
+      </el-sub-menu>
+
+      <el-sub-menu index="2">
+        <template #title>
+          <el-icon><Monitor /></el-icon>
+          <span>系统管理</span>
+        </template>
+        <el-menu-item>核心技术</el-menu-item>
+        <el-menu-item>商品统计</el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="3">
+        <template #title>
+          <el-icon><Monitor /></el-icon>
+          <span>商品中心</span>
+        </template>
+        <el-menu-item>商品类别</el-menu-item>
+        <el-menu-item>商品信息</el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="3">
+        <template #title>
+          <el-icon><Monitor /></el-icon>
+          <span>随便聊聊</span>
+        </template>
+        <el-menu-item>你的故事</el-menu-item>
+        <el-menu-item>故事列表</el-menu-item>
+      </el-sub-menu> -->
+
       <template v-for="item in userMenus" :key="item.id">
         <el-sub-menu :index="item.id + ''">
           <template #title>
             <el-icon>
-              <!-- 动态组件渲染图标 -->
               <component :is="item.icon.split('-icon-')[1]"></component>
             </el-icon>
             <span>{{ item.name }}</span>
@@ -34,18 +65,10 @@
 
 <script setup lang="ts">
 import { useLoginStore } from '@/store/login/login'
-
 // 用pinia里的数据进行渲染
 const loginStore = useLoginStore()
-const userMenus = loginStore.userMenus
-
-// 折叠菜单
-defineProps({
-  isFold: {
-    type: Boolean,
-    default: false
-  }
-})
+const userMenus = loginStore.userMenus.data
+console.log(userMenus)
 </script>
 
 <style lang="less" scoped>
@@ -71,7 +94,6 @@ defineProps({
     font-size: 16px;
     font-weight: 700;
     color: white;
-    white-space: nowrap; /*标题文本不换行*/
   }
 }
 

@@ -7,10 +7,7 @@ import {
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
-// 常量
 const LOGIN_TOKEN = 'token'
-const USER_MENUS = 'userMenus'
-const USER_INFO = 'userInfo'
 
 interface IloginState {
   token: string
@@ -21,8 +18,8 @@ interface IloginState {
 const useLoginStore = defineStore('login', {
   state: (): IloginState => ({
     token: localStorage.getItem(LOGIN_TOKEN) ?? '',
-    userInfo: localCache.getCache(USER_INFO) ?? {},
-    userMenus: localCache.getCache(USER_MENUS) ?? []
+    userInfo: {},
+    userMenus: []
   }),
   actions: {
     // eslint-disable-next-line prettier/prettier
@@ -31,6 +28,7 @@ const useLoginStore = defineStore('login', {
       const loginResult = await accountLoginRequest(account) // 异步拿到相应结果
       const id = loginResult.data.id
       this.token = loginResult.data.token //将响应的数据存到数据仓库中
+      const name = loginResult.data.name
 
       // 存token
       localCache.setCache(LOGIN_TOKEN, this.token)
@@ -42,13 +40,13 @@ const useLoginStore = defineStore('login', {
 
       // 根据角色请求用户权限（菜单menus）
       const userMenusResult = await getuserInfoByRoleId(this.userInfo.role.id)
-      this.userMenus = userMenusResult.data
+      this.userMenus = userMenusResult
       console.log(this.userMenus)
 
       // 进行本地缓存
 
-      localCache.setCache(USER_INFO, this.userInfo)
-      localCache.setCache(USER_MENUS, this.userMenus)
+      localCache.setCache('userInfo', this.userInfo)
+      localCache.setCache('userMenus', this.userMenus)
 
       // 页面跳转
       router.push('/main')

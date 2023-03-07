@@ -2,7 +2,10 @@
   <div class="nav-header">
     <div class="menu-icon" @click="handleMenuIconClick">
       <el-icon size="28px">
-        <component :is="isFold ? 'Expand' : 'Fold'"></component>
+        <!-- <component :is="isFold ? 'Expand' : 'Fold'"></component> -->
+        <template v-if="isFold">
+          <el-icon><Expand /></el-icon>
+        </template>
       </el-icon>
     </div>
     <div class="content">
@@ -14,11 +17,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const emit = defineEmits(['foldChange'])
 const isFold = ref(false)
 function handleMenuIconClick() {
   isFold.value = !isFold.value
-  emit('foldChange', isFold.value)
 }
 </script>
 

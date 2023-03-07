@@ -2,7 +2,7 @@
   <div class="main">
     <el-container>
       <el-aside :width="isCollapse ? '60px' : '210px'">
-        <MainMenu :is-fold="isCollapse" />
+        <MainMenu :isFold="isCollapse" />
       </el-aside>
       <el-container>
         <el-header>
@@ -38,8 +38,6 @@ function handleFoldChange(flag: boolean) {
 .el-aside {
   background-color: antiquewhite;
   height: 100vh;
-  overflow-x: hidden;
-  transition: width 0.3s ease;
 }
 .el-header {
   background-color: rgb(255, 255, 255);

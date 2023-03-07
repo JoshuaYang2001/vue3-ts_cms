@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <el-container>
-      <el-aside :width="isCollapse ? '60px' : '210px'">
-        <MainMenu :is-fold="isCollapse" />
+      <el-aside width="200px">
+        <MainMenu />
       </el-aside>
       <el-container>
         <el-header>
@@ -28,18 +28,14 @@ function handleExitClick() {
 }
 
 // 处理main-header中折叠的变化
-const isCollapse = ref(false)
-function handleFoldChange(flag: boolean) {
-  isCollapse.value = flag
-}
+const isFold = ref(false)
+function handleFoldChange(isFold: boolean) {}
 </script>
 
 <style lang="less" scoped>
 .el-aside {
   background-color: antiquewhite;
   height: 100vh;
-  overflow-x: hidden;
-  transition: width 0.3s ease;
 }
 .el-header {
   background-color: rgb(255, 255, 255);
