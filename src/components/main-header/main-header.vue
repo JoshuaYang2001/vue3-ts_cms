@@ -7,12 +7,13 @@
     </div>
     <div class="content">
       <span>面包屑</span>
-      <span>个人信息</span>
+      <headerInfo />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import headerInfo from './c-cpns/header-info.vue'
 import { ref } from 'vue'
 const emit = defineEmits(['foldChange'])
 const isFold = ref(false)
@@ -28,7 +29,6 @@ function handleMenuIconClick() {
   align-items: center;
   flex: 1;
   height: 100%;
-  background-color: palegoldenrod;
 
   .menu-icon {
     display: flex;
