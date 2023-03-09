@@ -7,7 +7,7 @@ import {
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
-import type { RouteRecordRaw } from 'vue-router'
+import { mapMenusToRouters } from '@/utils/map-menu'
 // 常量
 const LOGIN_TOKEN = 'token'
 const USER_MENUS = 'userMenus'
@@ -44,6 +44,7 @@ const useLoginStore = defineStore('login', {
       // 根据角色请求用户权限（菜单menus）
       const userMenusResult = await getuserInfoByRoleId(this.userInfo.role.id)
       this.userMenus = userMenusResult.data
+      // const userMenus = this.userMenus
       console.log(this.userMenus)
 
       // 进行本地缓存
@@ -52,21 +53,9 @@ const useLoginStore = defineStore('login', {
       localCache.setCache(USER_MENUS, this.userMenus)
 
       // 动态添加路由
-      const localRoutes: RouteRecordRaw[] = []
-      // 1. 读取router/main中所有的ts文件
-      const files: Record<string, any> = import.meta.glob(
-        '../../router/main/**/*.ts',
-        {
-          // ** 表示匹配所有的子目录
-          eager: true
-        }
-      )
+      const routes = mapMenusToRouters(this.userMenus)
 
-      for (const keys in files) {
-        const module = files[keys]
-        console.log(module.default)
-      }
-      console.log(files)
+      routes.forEach((route) => router.addRoute('main', route))
 
       // 页面跳转
       router.push('/main')

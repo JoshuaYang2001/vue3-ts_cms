@@ -15,6 +15,7 @@ const router = createRouter({
     },
     {
       path: '/main',
+      name: 'main', // 这个地方加name，我们就可以用addRoute 给它添加子路由
       component: () => import('../views/main/Main.vue')
     },
     {
