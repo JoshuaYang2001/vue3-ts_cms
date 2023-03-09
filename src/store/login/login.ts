@@ -7,6 +7,7 @@ import {
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
+import type { RouteRecordRaw } from 'vue-router'
 // 常量
 const LOGIN_TOKEN = 'token'
 const USER_MENUS = 'userMenus'
@@ -49,6 +50,23 @@ const useLoginStore = defineStore('login', {
 
       localCache.setCache(USER_INFO, this.userInfo)
       localCache.setCache(USER_MENUS, this.userMenus)
+
+      // 动态添加路由
+      const localRoutes: RouteRecordRaw[] = []
+      // 1. 读取router/main中所有的ts文件
+      const files: Record<string, any> = import.meta.glob(
+        '../../router/main/**/*.ts',
+        {
+          // ** 表示匹配所有的子目录
+          eager: true
+        }
+      )
+
+      for (const keys in files) {
+        const module = files[keys]
+        console.log(module.default)
+      }
+      console.log(files)
 
       // 页面跳转
       router.push('/main')

@@ -22,9 +22,11 @@
             <span>{{ item.name }}</span>
           </template>
           <template v-for="subitem in item.children" :key="subitem.id">
-            <el-menu-item :index="subitem.id + ''">{{
-              subitem.name
-            }}</el-menu-item>
+            <el-menu-item
+              :index="subitem.id + ''"
+              @click="handleItemClick(subitem)"
+              >{{ subitem.name }}</el-menu-item
+            >
           </template>
         </el-sub-menu>
       </template>
@@ -33,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import router from '@/router'
 import { useLoginStore } from '@/store/login/login'
 
 // 用pinia里的数据进行渲染
@@ -46,6 +49,10 @@ defineProps({
     default: false
   }
 })
+
+function handleItemClick(item: any) {
+  router.push(item.url)
+}
 </script>
 
 <style lang="less" scoped>

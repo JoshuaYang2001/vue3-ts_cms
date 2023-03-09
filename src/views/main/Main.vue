@@ -9,7 +9,9 @@
           <MainHeader @fold-change="handleFoldChange" />
           <button @click="handleExitClick">退出</button>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view> </router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -46,7 +48,7 @@ function handleFoldChange(flag: boolean) {
 }
 .el-main {
   color: #333;
-  text-align: center;
+
   background-color: #f0f2f5;
 }
 </style>
