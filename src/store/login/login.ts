@@ -21,9 +21,9 @@ interface IloginState {
 
 const useLoginStore = defineStore('login', {
   state: (): IloginState => ({
-    token: localStorage.getItem(LOGIN_TOKEN) ?? '',
-    userInfo: localCache.getCache(USER_INFO) ?? {},
-    userMenus: localCache.getCache(USER_MENUS) ?? []
+    token: '',
+    userInfo: {},
+    userMenus: []
   }),
   actions: {
     // eslint-disable-next-line prettier/prettier
@@ -52,13 +52,26 @@ const useLoginStore = defineStore('login', {
       localCache.setCache(USER_INFO, this.userInfo)
       localCache.setCache(USER_MENUS, this.userMenus)
 
-      // 动态添加路由
+      // 动态添加路由   tips：刷新的时候，这里的代码不会在执行一遍，因而出现路由丢失的情况
       const routes = mapMenusToRouters(this.userMenus)
 
       routes.forEach((route) => router.addRoute('main', route))
 
       // 页面跳转
       router.push('/main')
+    },
+    loadLocalCacheAction() {
+      const token = localCache.getCache(LOGIN_TOKEN)
+      const userInfo = localCache.getCache(USER_INFO)
+      const userMenus = localCache.getCache(USER_MENUS)
+      if (token && userInfo && userMenus) {
+        this.token = token
+        this.userInfo = userInfo
+        this.userMenus = userMenus
+      }
+      const routes = mapMenusToRouters(this.userMenus)
+
+      routes.forEach((route) => router.addRoute('main', route))
     }
   }
 })

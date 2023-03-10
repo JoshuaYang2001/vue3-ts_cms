@@ -21,14 +21,18 @@ function loadLocalRoutes() {
   return localRoutes
 }
 
+export let firstMenu: any = null // 第一次进入的菜单
+
 export function mapMenusToRouters(userMenus: any[]) {
   const localRoutes = loadLocalRoutes()
-  const routes: RouteRecordRaw[] = []
   // 根据菜单去匹配正确的路由
+  const routes: RouteRecordRaw[] = []
+
   for (const menu of userMenus) {
     for (const submenu of menu.children) {
       const route = localRoutes.find((item) => item.path == submenu.url)
       if (route) routes.push(route) // 这里加个if判断，进行类型缩小，防止route是undefined
+      if (!firstMenu && route) firstMenu = submenu
     }
   }
   return routes

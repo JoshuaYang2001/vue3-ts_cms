@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import { firstMenu } from '@/utils/map-menu'
 const router = createRouter({
   history: createWebHistory(), // 两种history的区别在什么地方
   // router选项是一个保存有多个对象的数组，每个对象都有对路由地址的记录
@@ -32,6 +32,9 @@ router.beforeEach((to) => {
 
   if (to.path.startsWith('/main') && !token) {
     return '/login'
+  }
+  if (to.path === '/main') {
+    return firstMenu?.url
   }
 })
 

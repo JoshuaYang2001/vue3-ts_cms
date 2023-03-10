@@ -6,7 +6,7 @@
     </div>
 
     <el-menu
-      default-active="3"
+      :default-active="defaultActive"
       text-color="#b7bdc3"
       :collapse="isFold"
       active-text-color="#fff"
@@ -37,10 +37,14 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useLoginStore } from '@/store/login/login'
-
+import { ref } from 'vue'
+import { firstMenu } from '@/utils/map-menu'
 // 用pinia里的数据进行渲染
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
+
+// 设置 menu 默认高亮菜单
+const defaultActive = ref(firstMenu.id + '')
 
 // 折叠菜单
 defineProps({
