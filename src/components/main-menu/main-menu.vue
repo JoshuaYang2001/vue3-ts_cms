@@ -38,13 +38,19 @@
 import router from '@/router'
 import { useLoginStore } from '@/store/login/login'
 import { ref } from 'vue'
-import { firstMenu } from '@/utils/map-menu'
+import { mapPathToMenu } from '@/utils/map-menu'
+import { useRoute } from 'vue-router'
 // 用pinia里的数据进行渲染
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 
 // 设置 menu 默认高亮菜单
-const defaultActive = ref(firstMenu.id + '')
+const route = useRoute()
+console.log(route.path)
+const pathMenu = mapPathToMenu(route.path, userMenus)
+console.log(pathMenu)
+
+const defaultActive = ref(pathMenu.id + '')
 
 // 折叠菜单
 defineProps({

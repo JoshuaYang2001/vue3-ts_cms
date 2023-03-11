@@ -6,13 +6,14 @@
       </el-icon>
     </div>
     <div class="content">
-      <span>面包屑</span>
+      <headerCrumb />
       <headerInfo />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import headerCrumb from './c-cpns/header-crumb.vue'
 import headerInfo from './c-cpns/header-info.vue'
 import { ref } from 'vue'
 const emit = defineEmits(['foldChange'])

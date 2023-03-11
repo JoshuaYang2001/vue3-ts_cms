@@ -37,3 +37,20 @@ export function mapMenusToRouters(userMenus: any[]) {
   }
   return routes
 }
+
+/**
+ * 根据路径匹配菜单
+ * @param path
+ * @param userMenus
+ */
+
+export function mapPathToMenu(path: string, userMenus: any[]) {
+  for (const menu of userMenus) {
+    for (const submenu of menu.children) {
+      if (submenu.url == path) {
+        return submenu
+      }
+    }
+  }
+  return undefined
+}
