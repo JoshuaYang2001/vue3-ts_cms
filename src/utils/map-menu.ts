@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 function loadLocalRoutes() {
-  // 自动化获取所有路由对象
+  // 将零散分布在各个文件的路由搜集起来
   const localRoutes: RouteRecordRaw[] = []
   // 1. 读取router/main中所有的ts文件
   const files: Record<string, any> = import.meta.glob(
@@ -23,6 +23,7 @@ function loadLocalRoutes() {
 
 export let firstMenu: any = null // 第一次进入的菜单
 
+// 动态添加路由板块
 export function mapMenusToRouters(userMenus: any[]) {
   const localRoutes = loadLocalRoutes()
   // 根据菜单去匹配正确的路由
@@ -30,8 +31,17 @@ export function mapMenusToRouters(userMenus: any[]) {
 
   for (const menu of userMenus) {
     for (const submenu of menu.children) {
-      const route = localRoutes.find((item) => item.path == submenu.url)
-      if (route) routes.push(route) // 这里加个if判断，进行类型缩小，防止route是undefined
+      const route = localRoutes.find((item) => item.path == submenu.url) // 根据请求菜单的url动态添加路由
+      // 给route的顶层菜单增加重定向功能
+      // 这里加个if判断，进行类型缩小，防止route是undefined
+      if (route) {
+        if (!routes.find((item) => item.path === menu.url)) {
+          routes.push({ path: menu.url, redirect: route.path })
+        }
+        // 将route的二级菜单加到routes里
+        routes.push(route)
+      }
+
       if (!firstMenu && route) firstMenu = submenu
     }
   }
@@ -53,4 +63,26 @@ export function mapPathToMenu(path: string, userMenus: any[]) {
     }
   }
   return undefined
+}
+
+interface IBreadcrumps {
+  name: string
+  path?: string
+}
+
+// 根据路径映射面包屑
+
+export function mapPathToBreadcrumps(path: string, userMenus: any[]) {
+  // 定义面包屑
+  const breadcrumps: IBreadcrumps[] = []
+  // 遍历获取面包屑的层级
+  for (const menu of userMenus) {
+    for (const submenu of menu.children) {
+      if (submenu.url == path) {
+        breadcrumps.push({ name: menu.name, path: menu.url })
+        breadcrumps.push({ name: submenu.name, path: submenu.url })
+      }
+    }
+  }
+  return breadcrumps
 }

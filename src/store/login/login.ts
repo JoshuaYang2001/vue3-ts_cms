@@ -60,6 +60,7 @@ const useLoginStore = defineStore('login', {
       // 页面跳转
       router.push('/main')
     },
+    // 每次刷新加载本地数据，动态增加路由-> 解决了刷新后路由丢失的问题
     loadLocalCacheAction() {
       const token = localCache.getCache(LOGIN_TOKEN)
       const userInfo = localCache.getCache(USER_INFO)

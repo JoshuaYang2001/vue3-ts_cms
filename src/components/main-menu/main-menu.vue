@@ -37,20 +37,26 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useLoginStore } from '@/store/login/login'
-import { ref } from 'vue'
 import { mapPathToMenu } from '@/utils/map-menu'
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 // 用pinia里的数据进行渲染
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 
+console.log('--------')
+
+console.log(userMenus)
+
 // 设置 menu 默认高亮菜单
 const route = useRoute()
 console.log(route.path)
-const pathMenu = mapPathToMenu(route.path, userMenus)
-console.log(pathMenu)
 
-const defaultActive = ref(pathMenu.id + '')
+const defaultActive = computed(() => {
+  //点击面包屑改变路由之后，重新计算defaultActive
+  const pathMenu = mapPathToMenu(route.path, userMenus)
+  return pathMenu.id + ''
+})
 
 // 折叠菜单
 defineProps({
