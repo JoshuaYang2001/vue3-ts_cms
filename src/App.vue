@@ -1,13 +1,15 @@
 <template>
   <div class="app">
-    <!-- <router-link to="/main">主要</router-link>
-    <br />
-    <router-link to="/login">登录</router-link> -->
-    <router-view></router-view>
+    <el-config-provider :locale="zhCn">
+      <router-view></router-view>
+    </el-config-provider>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// 国际化
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+</script>
 
 <style scoped>
 .app {

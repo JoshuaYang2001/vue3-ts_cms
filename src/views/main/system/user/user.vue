@@ -1,10 +1,15 @@
 <template>
   <div class="user">
-    <h2>user</h2>
+    <userSearch />
+    <userContent />
+    pagination
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import userContent from './c-cpns/user-content.vue'
+import userSearch from './c-cpns/user-search.vue'
+</script>
 
 <style lang="less" scoped>
 .user {

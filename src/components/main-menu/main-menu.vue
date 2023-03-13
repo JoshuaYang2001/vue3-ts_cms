@@ -44,8 +44,6 @@ import { computed } from 'vue'
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 
-console.log('--------')
-
 console.log(userMenus)
 
 // 设置 menu 默认高亮菜单
